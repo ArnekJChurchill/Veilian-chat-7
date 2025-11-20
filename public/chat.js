@@ -25,13 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const message = chatInput.value.trim();
     if (!message) return;
 
-    fetch('/message', {
+    fetch('/message', {   // ✅ Use relative URL for Render
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ displayName: name, message })
     })
+    .then(res => res.text())
     .then(() => { chatInput.value = ''; })
-    .catch(err => console.error(err));
+    .catch(err => console.error('[CLIENT] fetch error:', err));
   }
 
   sendBtn.addEventListener('click', sendMessage);
